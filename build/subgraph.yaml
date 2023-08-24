@@ -1,0 +1,54 @@
+specVersion: 0.0.5
+schema:
+  file: schema.graphql
+dataSources:
+  - kind: ethereum
+    name: PunkTLD
+    network: optimism
+    source:
+      address: "0xbca24d86e4ad1e011278faefc4ff191a731411ec"
+      abi: PunkTLD
+      startBlock: 4740788
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Approval
+        - ApprovalForAll
+        - DataChanged
+        - DefaultDomainChanged
+        - DomainBuyingToggle
+        - DomainCreated
+        - OwnershipTransferred
+        - ReferralFeeChanged
+        - TldPriceChanged
+        - TldRoyaltyChanged
+        - Transfer
+      abis:
+        - name: PunkTLD
+          file: PunkTLD\abis\PunkTLD.json
+      eventHandlers:
+        - event: Approval(indexed address,indexed address,indexed uint256)
+          handler: handleApproval
+        - event: ApprovalForAll(indexed address,indexed address,bool)
+          handler: handleApprovalForAll
+        - event: DataChanged(indexed address)
+          handler: handleDataChanged
+        - event: DefaultDomainChanged(indexed address,string)
+          handler: handleDefaultDomainChanged
+        - event: DomainBuyingToggle(indexed address,bool)
+          handler: handleDomainBuyingToggle
+        - event: DomainCreated(indexed address,indexed address,string)
+          handler: handleDomainCreated
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: ReferralFeeChanged(indexed address,uint256)
+          handler: handleReferralFeeChanged
+        - event: TldPriceChanged(indexed address,uint256)
+          handler: handleTldPriceChanged
+        - event: TldRoyaltyChanged(indexed address,uint256)
+          handler: handleTldRoyaltyChanged
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+      file: PunkTLD\PunkTLD.wasm
